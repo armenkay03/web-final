@@ -1,6 +1,5 @@
 {
-    "require": {
-      "ext-mysqli": "*"
-    }
+  "require": {
+    "php": "^8.0"
   }
-  
+}

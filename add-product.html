@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Manage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Inventory Management System</h1>
+        <br>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="add-product.html">Manage</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Manage Products</h2>
+        <div class="form-container">
+            <!-- Add Product Form -->
+            <div class="form-box">
+                <h3>Add a New Product</h3>
+                <form id="add-product-form">
+                    <div class="form-group">
+                        <label for="product-name">Product Name:</label>
+                        <input type="text" id="product-name" name="product-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-description">Description:</label>
+                        <textarea id="product-description" name="product-description" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-price">Price:</label>
+                        <input type="text" id="product-price" name="product-price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-date">Date:</label>
+                        <input type="date" id="product-date" name="product-date" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Delete Product Form -->
+            <div class="form-box">
+                <h3>Delete a Product</h3>
+                <form id="delete-product-form">
+                    <div class="form-group">
+                        <label for="delete-product-id">Product Name:</label>
+                        <input type="text" id="delete-product-id" name="delete-product-id" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn">Delete Product</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <br>
+    <br>
+    <br>
+    <footer>
+        <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>

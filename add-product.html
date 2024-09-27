@@ -5,6 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management - Add Product</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Modal styles */
+        .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+        }
+
+        .close-button {
+            color: red;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,7 +50,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="add-product.html">Add Product</a></li>
+                <li><a href="add-product.html">Manage</a></li>
                 <li><a href="report.html">Report</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -23,49 +59,120 @@
     <main>
         <h2>Manage Products</h2>
         <div class="form-container">
-            <!-- Add Product Form -->
             <div class="form-box">
                 <h3>Add a New Product</h3>
                 <form id="add-product-form">
+                    <input type="hidden" name="action" value="add">
+                    <div class="form-group">
+                        <label for="product-id">Product ID:</label>
+                        <input type="number" id="product-id" name="product_id" class="form-control" required>
+                    </div>
                     <div class="form-group">
                         <label for="product-name">Product Name:</label>
-                        <input type="text" id="product-name" name="product-name" class="form-control" required>
+                        <input type="text" id="product-name" name="product_name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="product-description">Description:</label>
-                        <textarea id="product-description" name="product-description" class="form-control" required></textarea>
+                        <textarea id="product-description" name="product_description" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="product-price">Price:</label>
-                        <input type="text" id="product-price" name="product-price" class="form-control" required>
+                        <input type="text" id="product-price" name="product_price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-quantity">Quantity:</label>
+                        <input type="number" id="product-quantity" name="product_quantity" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="product-date">Date:</label>
-                        <input type="date" id="product-date" name="product-date" class="form-control" required>
+                        <input type="date" id="product-date" name="product_date" class="form-control" required>
                     </div>
                     <button type="submit" class="btn">Add Product</button>
                 </form>
             </div>
 
-            <!-- Delete Product Form -->
             <div class="form-box">
                 <h3>Delete a Product</h3>
                 <form id="delete-product-form">
+                    <input type="hidden" name="action" value="delete">
                     <div class="form-group">
-                        <label for="delete-product-id">Product Name:</label>
-                        <input type="text" id="delete-product-id" name="delete-product-id" class="form-control" required>
+                        <label for="delete-product-id">Product ID:</label>
+                        <input type="number" id="delete-product-id" name="delete_product_id" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delete-quantity">Quantity to Remove:</label>
+                        <input type="number" id="delete-quantity" name="delete_quantity" class="form-control" required min="1">
                     </div>
                     <button type="submit" class="btn">Delete Product</button>
                 </form>
             </div>
         </div>
     </main>
-    <br>
-    <br>
-    <br>
+    
     <footer>
         <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
+
+    <div id="response-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
     <script src="scripts.js"></script>
+    <script>
+        var modal = document.getElementById("response-modal");
+        var span = document.getElementsByClassName("close-button")[0];
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function showModal(message) {
+            document.getElementById("modal-message").innerText = message;
+            modal.style.display = "block";
+        }
+
+        document.getElementById("add-product-form").onsubmit = function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch('product-management.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                showModal(data);  // Assuming the PHP returns a success message
+            })
+            .catch(error => {
+                showModal("Error: " + error.message);
+            });
+        }
+
+        document.getElementById("delete-product-form").onsubmit = function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch('product-management.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                showModal(data);  // Assuming the PHP returns a success message
+            })
+            .catch(error => {
+                showModal("Error: " + error.message);
+            });
+        }
+    </script>
 </body>
 </html>

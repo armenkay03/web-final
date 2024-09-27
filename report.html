@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management - Generate Report</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
     <header>
@@ -23,10 +24,9 @@
     <main>
         <h2>Generate Inventory Report</h2>
 
-        <!-- Report Generation Form -->
         <div class="form-container2">
             <div class="form-box">
-                <form id="generate-report-form">
+                <form id="generate-report-form" onsubmit="return generateReport(event)">
                     <div class="form-group">
                         <label for="start-date">Start Date:</label>
                         <input type="date" id="start-date" name="start-date" class="form-control" required>
@@ -35,29 +35,56 @@
                         <label for="end-date">End Date:</label>
                         <input type="date" id="end-date" name="end-date" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="additional-notes">Additional Notes:</label>
-                        <textarea id="additional-notes" name="additional-notes" class="form-control"></textarea>
+                    <div id="download-section">
+                        <button id="downloadReport" class="btn" onclick="downloadReport()">Download Report as Excel</button>
                     </div>
-                    <button type="submit" class="btn">Generate Report</button>
                 </form>
             </div>
         </div>
 
-        <br>
-        <br>
-
-        <!-- Download Report Button -->
-        <div id="download-section" style="display: none;">
-            <button id="downloadReport" class="btn">Download Report as ZIP</button>
-        </div>
+        
     </main>
-    <br>
-    <br>
-    <br>
     <footer>
         <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
-    <script src="scripts.js"></script>
+    <script>
+        let products = [];
+
+        // Fetch products from the server
+        async function fetchProducts() {
+            const response = await fetch('fetch_products.php');
+            products = await response.json();
+        }
+
+        // Call fetchProducts on page load
+        window.onload = fetchProducts;
+
+        function generateReport(event) {
+            event.preventDefault();
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Filter products based on the date range
+            const filteredProducts = products.filter(product => {
+                return product.date >= startDate && product.date <= endDate;
+            });
+
+            if (filteredProducts.length > 0) {
+                document.getElementById('download-section').style.display = 'block';
+                // Prepare data for Excel
+                prepareExcelReport(filteredProducts);
+            } else {
+                alert('No products found in the selected date range.');
+                document.getElementById('download-section').style.display = 'none';
+            }
+        }
+
+        function prepareExcelReport(data) {
+            const ws = XLSX.utils.json_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Products');
+            XLSX.writeFile(wb, 'inventory_report.xlsx');
+        }
+    </script>
 </body>
 </html>

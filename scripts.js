@@ -1,6 +1,6 @@
 function downloadZip() {
     const link = document.createElement('a');
-    link.href = 'https://github.com/armenkay03/web/archive/refs/heads/main.zip';
+    link.href = 'https://github.com/armenkay03/web-final/archive/refs/heads/main.zip';
     link.download = 'web.zip';
     document.body.appendChild(link);
     link.click();

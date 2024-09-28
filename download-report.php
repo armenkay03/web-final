@@ -66,4 +66,4 @@ $writer->save('php://output');
 // Close the connection
 $conn->close();
 exit();
-?>
+

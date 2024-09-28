@@ -76,5 +76,16 @@
         <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
     <script src="scripts.js"></script>
+    <script>
+            fetch(url, {
+        method: "get",
+        headers: new Headers({
+            "ngrok-skip-browser-warning": "69420",
+        }),
+        })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));    
+    </script>
 </body>
 </html>

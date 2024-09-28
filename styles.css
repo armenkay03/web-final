@@ -3,46 +3,91 @@ body, h1, h2, p, ul, li, input, textarea {
     margin: 0;
     padding: 0;
     border: 0;
-    
 }
 
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    background-color: #e0e0e0;
-    color: #000;
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
+    background-color: #f5f5f7; /* Soft light background */
+    color: #333; /* Dark gray for text */
     text-align: center;
 }
 
 header {
-    background: #55f4d4; /*green*/
-    color: #000;
+    background: linear-gradient(135deg, #00aaff, #0056b3); /* Modern gradient for header */
+    color: #fff;
     padding: 20px;
     font-size: 24px;
+    border-bottom: 2px solid #e0e0e0; /* Subtle bottom border */
+}
+
+.header-container {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out the button and the heading */
+    padding: 10px 20px; /* Add some padding */
+}
+
+.button-container {
+    margin-right: 20px; /* Space between button and heading */
+}
+
+#downloadButton {
+    background-color: #007bff; /* Button color */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 20px; /* Button padding */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#downloadButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+nav {
+    border-top: 2px solid #d1d1d6; /* Light gray, very subtle border */
+    border-bottom: 2px solid #d1d1d6; /* Light gray bottom border */
+    /* border-left:2px solid #d1d1d6 ;
+    border-right:2px solid #d1d1d6 ; */
+    background-color: transparent; /* Keep the background transparent */
+    padding: 10px 0; /* Add some vertical padding */
 }
 
 nav ul {
     list-style-type: none;
-    background-color: #3333cc; /*blue*/
-    padding: 10px;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center the navigation items */
+    gap: 20px; /* Space between the items */
 }
 
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
+    color: #fff; /* Apple's signature blue for links */
     font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 8px 16px; /* Add padding around the links */
+}
+
+nav ul li a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Add rounded corners for a modern, Apple-like feel */
+nav ul li a {
+    border-radius: 8px; /* Subtle rounding of edges */
+    padding: 10px;
 }
 
 main {
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff; /* Pure white for the main content */
     margin: 20px;
-    border: 2px;
-    box-shadow: 3px 3px #55f4d4, -1em 0 .4em #3333cc;
+    border-radius: 12px; /* Rounded corners for modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 /* Centering the products table */
@@ -54,11 +99,11 @@ table {
 
 th, td {
     padding: 10px; /* Adjust this value to control the space within each cell */
-    border: 1px solid #ddd; /* Optional: Adds a border around cells */
+    border: 1px solid #e0e0e0; /* Subtle border for cells */
 }
 
 thead th {
-    background-color: #f4f4f4; /* Optional: background color for header cells */
+    background-color: #f7f7f7; /* Light gray for header cells */
 }
 
 /* Styling for forms side by side */
@@ -74,11 +119,12 @@ thead th {
     flex: 1;
     max-width: 48%; /* Makes sure forms are side by side */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 12px; /* Rounded corners */
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Light background for forms */
     box-sizing: border-box;
 }
+
 /* Form Container 2 - Centers the form horizontally */
 .form-container2 {
     display: flex;
@@ -88,8 +134,7 @@ thead th {
     margin-top: 20px;
 }
 
-
-/* Retro Form Styling */
+/* Modern Form Styling */
 .form-group {
     margin-bottom: 15px;
     text-align: left; /* Align labels and inputs to the left */
@@ -99,14 +144,20 @@ thead th {
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
+    color: #555; /* Dark gray for labels */
 }
 
 .form-control {
     width: 100%;
-    padding: 8px;
+    padding: 12px; /* Increased padding for inputs */
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px; /* Rounded corners */
     box-sizing: border-box;
+    transition: border 0.3s ease; /* Smooth border transition */
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Focus color */
 }
 
 textarea.form-control {
@@ -114,92 +165,78 @@ textarea.form-control {
 }
 
 .btn {
-    background-color: #3333cc;
+    background-color: #007bff; /* Primary blue color */
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 12px 24px; /* Increased padding for buttons */
+    border-radius: 6px; /* Rounded corners */
     cursor: pointer;
     font-size: 16px;
     display: inline-block;
     margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
 }
 
 .btn:hover {
-    background-color: #55f4d4;
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
 footer {
-    background: #55f4d4;
-    color: #000;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    background: #00aaff; /* Modern gradient for footer */
+    color: #fff;
+    padding: 20px;
+    position: relative; /* Change fixed to relative for better flow */
     font-size: 14px;
 }
 
-/* Retro Button Styles */
-.button-container {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-}
-
-/* Retro Button Styles */
+/* Modern Button Styles */
 button {
-    background-color: #000; /* Background color before hover (black) */
-    color: #fff; /* Text color before hover (white) */
-    border: 2px solid #000; /* Border color before hover (black) */
-    border-radius: 5px;
-    padding: 10px 20px;
+    background-color: #007bff; /* Primary blue */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 12px 20px; /* Consistent padding */
+    border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
-    text-shadow: 1px 1px #f00; /* Optional: text shadow */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 button:hover {
-    background-color: #f00; /* Background color on hover (white) */
-    color: #3333cc; /* Text color on hover (black) */
-    border-color: #fff; /* Border color on hover (white) */
-    transform: scale(1.1); /* Slightly enlarge the button on hover */
-    /* text-shadow: 1px 1px #000; */
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
 button:active {
     transform: scale(1); /* Reset size when the button is active */
-    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.5); /* Inner shadow effect when active */
 }
 
-
+/* Modern Contact Form */
 .contact-form {
     width: 50%;
-/*    text-align: center;*/
     padding: 20px;
-/*    background-color: ;*/
-    margin: 0 auto; /* Centers the table horizontally */
+    margin: 0 auto; /* Centers the form */
     border-collapse: collapse; /* Optional: Collapses borders */
 }
+
 /* Welcome Section */
 .welcome-section {
-    background-color: #f0f8ff;
+    background-color: #e8f0fe; /* Light background */
     padding: 40px;
     text-align: center;
     color: #333;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* About Section */
 .about-section {
     margin: 40px 0;
     padding: 20px;
-    background-color: #fff8e1;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* Clean white for content */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -207,9 +244,9 @@ button:active {
 .gallery-section {
     margin: 40px 0;
     padding: 20px;
-    background-color: #e6f7ff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f0f8ff; /* Light gallery background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gallery {
@@ -228,13 +265,13 @@ button:active {
 .gallery-item img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 8px; /* Rounded corners for images */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
 }
 
 .gallery-item img:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Slightly enlarge image on hover */
 }
 
 .gallery-item p {
@@ -248,9 +285,9 @@ button:active {
 .why-section {
     margin: 40px 0;
     padding: 20px;
-    background-color: #ffebee;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffe0b2; /* Light background for section */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -262,30 +299,16 @@ button:active {
 
 /* General Styling */
 h2 {
-    color: #007bff;
+    color: #007bff; /* Blue for headings */
     font-size: 28px;
     margin-bottom: 20px;
 }
 
 p {
     font-size: 16px;
-    color: #555;
+    color: #555; /* Darker gray for paragraphs */
     line-height: 1.6;
 }
-
-
-
-button {
-    background-color: #3333cc;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
 
 .modal {
     display: none;
@@ -295,19 +318,20 @@ button {
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px; /* Rounded corners for modals */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 .modal.show {
     display: block;
 }
+
 .modal-close {
     cursor: pointer;
-    color: red;
+    color: #007bff; /* Blue for close button */
 }
 
+/* Hide scrollbar */
 ::-webkit-scrollbar { 
     display: none; 
-}
-
-
+} 

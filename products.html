@@ -48,6 +48,11 @@
     </footer>
     <script>
         let products = [];
+        let sortOrder = {
+            name: 'asc', // Default sort order for name
+            date: 'asc', // Default sort order for date
+            quantity: 'asc' // Default sort order for quantity
+        };
 
         // Fetch products from the PHP file
         fetch('fetch_products.php')
@@ -88,13 +93,28 @@
 
             switch (criteria) {
                 case 'name':
-                    sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
+                    sortedProducts = products.sort((a, b) => {
+                        return sortOrder.name === 'asc' 
+                            ? a.name.localeCompare(b.name) 
+                            : b.name.localeCompare(a.name);
+                    });
+                    sortOrder.name = sortOrder.name === 'asc' ? 'desc' : 'asc'; // Toggle sort order
                     break;
                 case 'date':
-                    sortedProducts = products.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
+                    sortedProducts = products.sort((a, b) => {
+                        return sortOrder.date === 'asc' 
+                            ? new Date(a.date) - new Date(b.date) 
+                            : new Date(b.date) - new Date(a.date);
+                    });
+                    sortOrder.date = sortOrder.date === 'asc' ? 'desc' : 'asc'; // Toggle sort order
                     break;
                 case 'quantity':
-                    sortedProducts = products.sort((a, b) => b.quantity - a.quantity); // Highest quantity first
+                    sortedProducts = products.sort((a, b) => {
+                        return sortOrder.quantity === 'asc' 
+                            ? a.quantity - b.quantity 
+                            : b.quantity - a.quantity;
+                    });
+                    sortOrder.quantity = sortOrder.quantity === 'asc' ? 'desc' : 'asc'; // Toggle sort order
                     break;
                 default:
                     return;

@@ -94,7 +94,7 @@
             switch (criteria) {
                 case 'name':
                     sortedProducts = products.sort((a, b) => {
-                        return sortOrder.name === 'asc' 
+                        return sortOrder.name === 'desc' 
                             ? a.name.localeCompare(b.name) 
                             : b.name.localeCompare(a.name);
                     });
@@ -102,7 +102,7 @@
                     break;
                 case 'date':
                     sortedProducts = products.sort((a, b) => {
-                        return sortOrder.date === 'asc' 
+                        return sortOrder.date === 'desc' 
                             ? new Date(a.date) - new Date(b.date) 
                             : new Date(b.date) - new Date(a.date);
                     });
@@ -110,7 +110,7 @@
                     break;
                 case 'quantity':
                     sortedProducts = products.sort((a, b) => {
-                        return sortOrder.quantity === 'asc' 
+                        return sortOrder.quantity === 'desc' 
                             ? a.quantity - b.quantity 
                             : b.quantity - a.quantity;
                     });

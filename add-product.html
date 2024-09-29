@@ -50,7 +50,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="manage-product.html">Manage</a></li>
+                <li><a href="add-product.html">Manage</a></li>
                 <li><a href="report.html">Report</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -96,23 +96,23 @@
                 <form id="update-product-form">
                     <input type="hidden" name="action" value="update">
                     <div class="form-group">
-                        <label for="update-product-id">Product ID (Required):</label>
+                        <label for="update-product-id">Product ID:</label>
                         <input type="number" id="update-product-id" name="update_product_id" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="update-description">New Description (Optional):</label>
+                        <label for="update-description">New Description:</label>
                         <textarea id="update-description" name="update_description" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="update-price">New Price (Optional):</label>
+                        <label for="update-price">New Price:</label>
                         <input type="text" id="update-price" name="update_price" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="update-quantity">New Quantity (Optional):</label>
+                        <label for="update-quantity">New Quantity:</label>
                         <input type="number" id="update-quantity" name="update_quantity" class="form-control" min="0">
                     </div>
                     <div class="form-group">
-                        <label for="update-date">New Date (Optional):</label>
+                        <label for="update-date">New Date:</label>
                         <input type="date" id="update-date" name="update_date" class="form-control">
                     </div>
                     <button type="submit" class="btn">Update Product</button>
@@ -124,7 +124,7 @@
                 <form id="delete-product-form">
                     <input type="hidden" name="action" value="delete">
                     <div class="form-group">
-                        <label for="delete-product-id">Product ID (Required):</label>
+                        <label for="delete-product-id">Product ID:</label>
                         <input type="number" id="delete-product-id" name="delete_product_id" class="form-control" required>
                     </div>
                     <button type="submit" class="btn">Delete Product</button>

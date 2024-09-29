@@ -61,7 +61,7 @@ if($db)
                     unset($_SESSION['message']);
                 }
                 ?>
-                <form method="post" action="login.php">
+                <form method="post" action="index.php">
                     <table>
                         <tr>
                             <td>Username:</td>

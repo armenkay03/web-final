@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch products from the database
-$query = "SELECT * FROM products";
+$query = "SELECT id, name, description, price, quantity, date FROM products"; // Ensure quantity is included
 $result = $conn->query($query);
 
 $products = [];
@@ -24,10 +24,10 @@ $products = [];
 if ($result->num_rows > 0) {
     // Store data in an array
     while ($row = $result->fetch_assoc()) {
-        // Assuming your date field in the database is named 'product_date'
+        // Format the date
         $date = new DateTime($row['date']);
         $row['date'] = $date->format('m-d-Y'); // Change the format to month-day-year
-        $products[] = $row;
+        $products[] = $row; // Store the entire product row including quantity
     }
 } 
 
@@ -37,4 +37,3 @@ $conn->close();
 // Return products as a JSON response
 header('Content-Type: application/json');
 echo json_encode($products);
-?>

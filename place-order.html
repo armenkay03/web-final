@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Place Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Inventory Management System</h1>
+        <br>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="add-product.html">Manage</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="place-order.html">Place Order</a></li>
+                <li><a href="admin-orders.html">Admin Orders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Place Your Order</h2>
+        
+        <div class="form-container2">
+            <div class="form-box">
+                <form id="order-form" onsubmit="return placeOrder(event)">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name:</label>
+                        <input type="text" id="customerName" name="customerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Customer Email:</label>
+                        <input type="email" id="customerEmail" name="customerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product">Select Product:</label>
+                        <select id="product" name="product" class="form-control" required onchange="updateQuantityOptions()">
+                            <option value="">Select a product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity" name="quantity" class="form-control" required>
+                            <option value="">Select quantity</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Inventory Management System. All rights reserved.  
+            <a href="https://github.com/armenkay03/web-final/archive/refs/heads/main.zip" style="text-decoration: none; color: white;"> Download source code</a>
+        </p>
+    </footer>
+    <script>
+        let products = [];
+    
+        // Fetch products from the server
+        async function fetchProducts() {
+            try {
+                const response = await fetch('fetch_products.php');
+                products = await response.json();
+                const productSelect = document.getElementById('product');
+                
+                products.forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.name; // Use product name as value
+                    option.textContent = `${product.name} - ${product.description}`; // Display name and description
+                    productSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+    
+        // Update quantity options based on the selected product
+        function updateQuantityOptions() {
+            const productSelect = document.getElementById('product');
+            const quantitySelect = document.getElementById('quantity');
+            quantitySelect.innerHTML = '<option value="">Select quantity</option>'; // Reset quantity dropdown
+    
+            const selectedProductName = productSelect.value;
+            const selectedProduct = products.find(product => product.name === selectedProductName);
+            
+            if (selectedProduct && selectedProduct.quantity > 0) {
+                const maxQuantity = selectedProduct.quantity; // Assuming quantity is the available stock
+                for (let i = 1; i <= maxQuantity; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i; // Display quantity from 1 to maxQuantity
+                    quantitySelect.appendChild(option);
+                }
+            }
+        }
+    
+        // Call fetchProducts on page load
+        window.onload = fetchProducts;
+    
+        // Handle form submission
+        async function placeOrder(event) {
+            event.preventDefault(); // Prevent default form submission
+            const formData = new FormData(document.getElementById('order-form'));
+    
+            try {
+                const response = await fetch('place-order.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.text();
+                alert(result); // Show success or error message
+                document.getElementById('order-form').reset(); // Reset the form
+                updateQuantityOptions(); // Reset quantity dropdown on form reset
+            } catch (error) {
+                console.error('Error placing order:', error);
+            }
+        }
+    </script>
+    
+</body>
+</html>

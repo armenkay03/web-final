@@ -33,7 +33,7 @@ if(isset($_POST['register_btn']))
                 mysqli_query($db,$sql);  
                 $_SESSION['message']="You are now logged in"; 
                 $_SESSION['username']=$username;
-                header("location:index.html");  //redirect home page
+                header("location:home.html");  //redirect home page
             }
             else
             {

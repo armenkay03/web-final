@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management - Contact</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
     <header>
@@ -14,10 +14,7 @@
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="add-product.html">Manage</a></li>
-                <li><a href="report.html">Report</a></li>
                 <li><a href="place-order.html">Place Order</a></li>
-                <li><a href="admin-orders.html">Admin Orders</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -59,26 +56,6 @@
             <a href="https://github.com/armenkay03/web-final/archive/refs/heads/main.zip" style="text-decoration: none; color: white;"> Download source code</a>
         </p>
     </footer>
-    <script>document.getElementById('contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-    
-        var formData = new FormData(this);
-        fetch('https://web-prog-436717.uc.r.appspot.com/', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            if (result.trim() === 'success') {
-                document.getElementById('success-modal').classList.add('show');
-                document.getElementById('contact-form').reset();
-            } else {
-                alert('There was an error submitting the form: ' + result);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });</script>
+    <script src="../scripts/scripts.js"></script>
 </body>
 </html>

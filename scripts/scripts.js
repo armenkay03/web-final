@@ -1,13 +1,4 @@
-function downloadZip() {
-    const link = document.createElement('a');
-    link.href = 'https://github.com/armenkay03/web-final/archive/refs/heads/main.zip';
-    link.download = 'web.zip';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
 document.addEventListener('DOMContentLoaded', function() {
-
 
     const form = document.querySelector('#add-product-form');
     if (form) {
@@ -51,7 +42,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     var formData = new FormData(this);
-    fetch('connect.php', {
+    fetch('../php/connect.php', {
         method: 'POST',
         body: formData
     })

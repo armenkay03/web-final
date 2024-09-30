@@ -1,37 +1,36 @@
 <?php
 session_start();
-if(  isset($_SESSION['username']) )
-{
-  header("location:home.html");
-  die();
+if (isset($_SESSION['username'])) {
+    header("location:home.html");
+    die();
 }
-//connect to database
-$db=mysqli_connect("34.173.30.56","root","nemra26","mysite");
-if($db)
-{
-  if(isset($_POST['login_btn']))
-  {
-      $username=mysqli_real_escape_string($db,$_POST['username']);
-      $password=mysqli_real_escape_string($db,$_POST['password']);
-      $password=md5($password); //Remember we hashed password before storing last time
-      $sql="SELECT * FROM users WHERE  username='$username' AND password='$password'";
-      $result=mysqli_query($db,$sql);
-      
-      if($result)
-      {
-     
-        if( mysqli_num_rows($result)>=1)
-        {
-            $_SESSION['message']="You are now Loggged In";
-            $_SESSION['username']=$username;
-            header("location:home.html");
+// Connect to database
+$db = mysqli_connect("34.173.30.56", "root", "nemra26", "mysite");
+if ($db) {
+    if (isset($_POST['login_btn'])) {
+        $username = mysqli_real_escape_string($db, $_POST['username']);
+        $password = mysqli_real_escape_string($db, $_POST['password']);
+        $password = md5($password); // Remember we hashed the password before storing last time
+        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+        $result = mysqli_query($db, $sql);
+
+        if ($result) {
+            if (mysqli_num_rows($result) >= 1) {
+                $_SESSION['message'] = "You are now Logged In";
+                $_SESSION['username'] = $username;
+
+                // Check if the user is admin
+                if ($username === 'admin') {
+                    header("location:../admin/admin.html");
+                } else {
+                    header("location:../user/home.html");
+                }
+                die();
+            } else {
+                $_SESSION['message'] = "Username and Password combination incorrect";
+            }
         }
-       else
-       {
-              $_SESSION['message']="Username and Password combiation incorrect";
-       }
-      }
-  }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -42,7 +41,7 @@ if($db)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styleLogin.css">
+    <link rel="stylesheet" href="../styles/styleLogin.css">
 </head>
 <body>
 

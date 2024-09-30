@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management - Products</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Inventory Management - Home</title>
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
     <header>
@@ -12,13 +12,11 @@
         <br>
         <nav>
             <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="admin.html">Products</a></li>
                 <li><a href="add-product.html">Manage</a></li>
                 <li><a href="report.html">Report</a></li>
-                <li><a href="place-order.html">Place Order</a></li>
                 <li><a href="admin-orders.html">Admin Orders</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="../php/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
@@ -59,7 +57,7 @@
         };
 
         // Fetch products from the PHP file
-        fetch('fetch_products.php')
+        fetch('../php/fetch_products.php')
             .then(response => response.json())
             .then(data => {
                 products = data; // Store the fetched products

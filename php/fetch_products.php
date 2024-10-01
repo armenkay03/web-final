@@ -15,8 +15,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch products from the database
-$query = "SELECT id, name, description, price, quantity, date FROM products"; // Ensure quantity is included
+// Fetch products from the database, including the 'date' field
+$query = "SELECT id, name, description, price, quantity, date FROM products"; // Ensure 'date' is included
 $result = $conn->query($query);
 
 $products = [];
@@ -24,16 +24,19 @@ $products = [];
 if ($result->num_rows > 0) {
     // Store data in an array
     while ($row = $result->fetch_assoc()) {
-        // Format the date
-        $date = new DateTime($row['date']);
-        $row['date'] = $date->format('m-d-Y'); // Change the format to month-day-year
-        $products[] = $row; // Store the entire product row including quantity
+        // Format the date as mm/dd/yyyy using PHP's date function
+        $formattedDate = date("m/d/Y", strtotime($row['date']));
+        
+        // Add the formatted date to the product array
+        $row['date'] = $formattedDate; // Replace the original date with the formatted one
+
+        $products[] = $row; // Store the product row with the formatted date
     }
 } 
-
-// Close the connection
-$conn->close();
 
 // Return products as a JSON response
 header('Content-Type: application/json');
 echo json_encode($products);
+
+// Close the connection
+$conn->close();

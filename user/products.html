@@ -25,10 +25,12 @@
             <button onclick="sortProducts('name')">Sort by Name</button>
             <button onclick="sortProducts('date')">Sort by Date Added</button>
             <button onclick="sortProducts('quantity')">Sort by Quantity</button>
+            <button onclick="sortProducts('price')">Sort by Price</button>
         </div>
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Product Name</th>
                     <th>Description</th>
                     <th>Price</th>
@@ -42,16 +44,15 @@
         </table>
     </main>
     <footer>
-        <p>&copy; 2024 Inventory Management System. All rights reserved.  
-            <a href="https://github.com/armenkay03/web-final/archive/refs/heads/main.zip" style="text-decoration: none; color: white;"> Download source code</a>
-        </p>
+        <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
     <script>
         let products = [];
         let sortOrder = {
             name: 'asc', // Default sort order for name
             date: 'asc', // Default sort order for date
-            quantity: 'asc' // Default sort order for quantity
+            quantity: 'asc', // Default sort order for quantity
+            price: 'asc' // Default sort order for price
         };
 
         // Fetch products from the PHP file
@@ -74,6 +75,7 @@
                 products.forEach(product => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
+                        <td>${product.id}</td>
                         <td>${product.name}</td>
                         <td>${product.description}</td>
                         <td>$${product.price}</td>
@@ -114,6 +116,14 @@
                             : b.quantity - a.quantity;
                     });
                     sortOrder.quantity = sortOrder.quantity === 'asc' ? 'desc' : 'asc'; // Toggle sort order
+                    break;
+                case 'price': // New case for price sorting
+                    sortedProducts = products.sort((a, b) => {
+                        return sortOrder.price === 'desc' 
+                            ? a.price - b.price 
+                            : b.price - a.price;
+                    });
+                    sortOrder.price = sortOrder.price === 'asc' ? 'desc' : 'asc'; // Toggle sort order
                     break;
                 default:
                     return;

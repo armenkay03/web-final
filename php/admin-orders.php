@@ -21,13 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         while ($row = $result->fetch_assoc()) {
             $orderId = $row['id'];
 
-            // Fetch order items for each order
-            $itemsSql = "SELECT * FROM order_items WHERE order_id=$orderId";
+            // Fetch order items for each order along with product names
+            $itemsSql = "SELECT oi.quantity, p.name AS product_name 
+                         FROM order_items oi 
+                         LEFT JOIN products p ON oi.product_id = p.id 
+                         WHERE oi.order_id = $orderId";
             $itemsResult = $conn->query($itemsSql);
 
             $items = [];
             while ($itemRow = $itemsResult->fetch_assoc()) {
-                $items[] = $itemRow;
+                $items[] = [
+                    'product' => $itemRow['product_name'], // Get the product name
+                    'quantity' => $itemRow['quantity']
+                ];
             }
 
             $orders[] = [
@@ -60,4 +66,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
-

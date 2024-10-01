@@ -16,6 +16,7 @@
                 <li><a href="add-product.html">Manage</a></li>
                 <li><a href="report.html">Report</a></li>
                 <li><a href="admin-orders.html">Admin Orders</a></li>
+                <li><a href="order-history.html">Order History</a></li>
                 <li><a href="../php/logout.php">Log Out</a></li>
             </ul>
         </nav>
@@ -26,6 +27,7 @@
             <button onclick="sortProducts('name')">Sort by Name</button>
             <button onclick="sortProducts('date')">Sort by Date Added</button>
             <button onclick="sortProducts('quantity')">Sort by Quantity</button>
+            <button onclick="sortProducts('price')">Sort by Price</button>
         </div>
         <table>
             <thead>
@@ -53,7 +55,8 @@
         let sortOrder = {
             name: 'asc', // Default sort order for name
             date: 'asc', // Default sort order for date
-            quantity: 'asc' // Default sort order for quantity
+            quantity: 'asc', // Default sort order for quantity
+            price: 'asc' // Default sort order for price
         };
 
         // Fetch products from the PHP file
@@ -117,6 +120,14 @@
                             : b.quantity - a.quantity;
                     });
                     sortOrder.quantity = sortOrder.quantity === 'asc' ? 'desc' : 'asc'; // Toggle sort order
+                    break;
+                case 'price': // New case for price sorting
+                    sortedProducts = products.sort((a, b) => {
+                        return sortOrder.price === 'desc' 
+                            ? a.price - b.price 
+                            : b.price - a.price;
+                    });
+                    sortOrder.price = sortOrder.price === 'asc' ? 'desc' : 'asc'; // Toggle sort order
                     break;
                 default:
                     return;

@@ -19,8 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['customerName'], $_POST['customerEmail'], $_POST['product'], $_POST['quantity'])) {
         $customerName = $_POST['customerName'];
         $customerEmail = $_POST['customerEmail'];
-        $product = $_POST['product'];
+        $productId = $_POST['product']; // Use product ID
         $quantity = (int)$_POST['quantity']; // Ensure quantity is an integer
+
+        // Debugging: Log the values being submitted
+        error_log("Product ID: " . $productId);
+        error_log("Quantity: " . $quantity);
 
         // Insert into the 'orders' table first
         $orderStmt = $conn->prepare("INSERT INTO orders (customer_name, customer_email) VALUES (?, ?)");
@@ -36,13 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $orderId = $orderStmt->insert_id; // Get the last inserted order ID
 
             // Now insert into the 'order_items' table
-            $itemStmt = $conn->prepare("INSERT INTO order_items (order_id, product, quantity) VALUES (?, ?, ?)");
+            $itemStmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)");
             if ($itemStmt === false) {
                 die("Error preparing item statement: " . $conn->error);
             }
 
-            // Bind the parameters (iii -> integer, string, integer)
-            $itemStmt->bind_param("isi", $orderId, $product, $quantity);
+            // Bind the parameters (iii -> integer, integer, integer)
+            $itemStmt->bind_param("iii", $orderId, $productId, $quantity);
 
             // Execute the statement to add order item
             if ($itemStmt->execute()) {
@@ -60,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close the order statement
         $orderStmt->close();
     } else {
-        echo "Error: Missing required form data.";
+        echo json_encode(["status" => "error", "message" => "Error: Missing required form data."]);
     }
 }
 

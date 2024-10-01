@@ -24,6 +24,8 @@ $submissions = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Remove "\r\n" and other special characters before encoding
+        $row['message'] = preg_replace("/\r\n|\r|\n/", ' ', $row['message']);
         $submissions[] = $row;
     }
 }
@@ -31,5 +33,5 @@ if ($result->num_rows > 0) {
 // Close the database connection
 $conn->close();
 
-// Return the submissions as JSON
-echo json_encode($submissions);
+// Return the submissions as JSON without unnecessary escaping
+echo json_encode($submissions, JSON_UNESCAPED_SLASHES);

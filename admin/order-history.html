@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders - History</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Inventory Management System</h1>
+        <br>
+        <nav>
+            <ul>
+                <li><a href="admin.html">Products</a></li>
+                <li><a href="add-product.html">Manage</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="admin-orders.html">Admin Orders</a></li>
+                <li><a href="order-history.html">Order History</a></li>
+                <li><a href="../php/logout.php">Log Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Accepted Orders</h2>
+            <table id="accepted-orders">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
+                        <th>Order Date</th>
+                        <th>Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Accepted orders will be populated here -->
+                </tbody>
+            </table>
+        </section>
+        <br>
+        <section>
+            <h2>Rejected Orders</h2>
+            <table id="rejected-orders">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
+                        <th>Order Date</th>
+                        <th>Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rejected orders will be populated here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Inventory Management System. All rights reserved.  
+            <a href="https://github.com/armenkay03/web-final/archive/refs/heads/main.zip" style="text-decoration: none; color: white;"> Download source code</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchOrders();
+        });
+
+        function fetchOrders() {
+            fetch("../php/get-orders.php")
+                .then(response => {
+                    if (!response.ok) {
+                        console.error("Network response was not ok", response.statusText);
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Fetched orders:", data);
+
+                    const acceptedOrdersTable = document.querySelector("#accepted-orders tbody");
+                    const rejectedOrdersTable = document.querySelector("#rejected-orders tbody");
+
+                    data.forEach(order => {
+    const row = document.createElement("tr");
+
+    // Format the items as product_name (product_id) - description [quantity]
+    const itemsFormatted = order.items.map(item => 
+        `ID:${item.product_id} - Name: ${item.product_name} - ${item.product_description} - Quantity: ${item.quantity}`
+    ).join(", ");
+
+    row.innerHTML = `
+        <td>${order.id}</td>
+        <td>${order.customer_name}</td>
+        <td>${order.customer_email}</td>
+        <td>${order.order_date}</td>
+        <td>${itemsFormatted}</td>
+    `;
+
+    if (order.status === 'Accepted') {
+        acceptedOrdersTable.appendChild(row);
+    } else if (order.status === 'Rejected') {
+        rejectedOrdersTable.appendChild(row);
+    }
+});
+                })
+                .catch(error => {
+                    console.error("Error fetching orders:", error);
+                });
+        }
+    </script>
+</body>
+</html>

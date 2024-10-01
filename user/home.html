@@ -11,6 +11,7 @@
         <h1>Inventory Management System</h1>
         <br>
         <nav>
+            <script src="../scripts/navbar.js"></script>
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
@@ -71,16 +72,5 @@
         <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
     <script src="../scripts/scripts.js"></script>
-    <script>
-            fetch(url, {
-        method: "get",
-        headers: new Headers({
-            "ngrok-skip-browser-warning": "69420",
-        }),
-        })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));    
-    </script>
 </body>
 </html>

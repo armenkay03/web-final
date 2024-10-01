@@ -5,53 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management - Manage Products</title>
     <link rel="stylesheet" href="../styles/styles.css">
-    <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close-button {
-            color: red;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/add-product.css">
 </head>
 <body>
     <header>
         <h1>Inventory Management System</h1>
         <br>
         <nav>
+            <script src="../scripts/navbar.js"></script>
             <ul>
                 <li><a href="admin.html">Products</a></li>
                 <li><a href="add-product.html">Manage</a></li>
                 <li><a href="report.html">Report</a></li>
                 <li><a href="admin-orders.html">Admin Orders</a></li>
                 <li><a href="order-history.html">Order History</a></li>
+                <li><a href="admin-contact.html">Contact Submissions</a></li>
                 <li><a href="../php/logout.php">Log Out</a></li>
             </ul>
         </nav>
@@ -148,84 +116,6 @@
             <p id="modal-message"></p>
         </div>
     </div>
-
-    <script src="../scripts/scripts.js"></script>
-    <script>
-        var modal = document.getElementById("response-modal");
-        var span = document.getElementsByClassName("close-button")[0];
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        function showModal(message) {
-            document.getElementById("modal-message").innerText = message;
-            modal.style.display = "block";
-        }
-
-        document.getElementById("add-product-form").onsubmit = function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            fetch('../php/product-management.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                showModal(data);
-            })
-            .catch(error => {
-                showModal("Error: " + error.message);
-            });
-        };
-
-        document.getElementById("update-product-form").onsubmit = function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            // Remove empty fields from the formData (only send filled inputs)
-            for (var pair of formData.entries()) {
-                if (!pair[1]) { // if the value is empty, delete it
-                    formData.delete(pair[0]);
-                }
-            }
-
-            fetch('../php/product-management.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                showModal(data);
-            })
-            .catch(error => {
-                showModal("Error: " + error.message);
-            });
-        };
-
-        document.getElementById("delete-product-form").onsubmit = function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            fetch('../php/product-management.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                showModal(data);
-            })
-            .catch(error => {
-                showModal("Error: " + error.message);
-            });
-        };
-    </script>
+    <script src="../scripts/add-product.js"></script>
 </body>
 </html>

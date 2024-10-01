@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management - Home</title>
+    <title>Admin - Contact Submissions</title>
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
@@ -24,34 +24,27 @@
         </nav>
     </header>
     <main>
-        <h2>Our Products</h2>
-        <div style="padding-bottom: 10px;">
-            <button onclick="sortProducts('name')">Sort by Name</button>
-            <button onclick="sortProducts('date')">Sort by Date Added</button>
-            <button onclick="sortProducts('quantity')">Sort by Quantity</button>
-            <button onclick="sortProducts('price')">Sort by Price</button>
-        </div>
-        <table>
+        <h2>All Submissions</h2>
+        <table id="submissionsTable">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Product Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Date Added</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Submitted At</th>
                 </tr>
             </thead>
-            <tbody id="product-table-body">
-                <!-- Product rows will be inserted here -->
+            <tbody>
+                <!-- Data will be populated here by JavaScript -->
             </tbody>
-        </table>
+        </table>        
     </main>
+
     <footer>
-        <p>&copy; 2024 Inventory Management System. All rights reserved.  
-            <a href="https://github.com/armenkay03/web-final/archive/refs/heads/main.zip" style="text-decoration: none; color: white;"> Download source code</a>
-        </p>
+        <p>&copy; 2024 Inventory Management System. All rights reserved.</p>
     </footer>
-    <script src="../scripts/products.js"></script>
+
+    <script src="../scripts/admin-contact.js"></script>
 </body>
 </html>

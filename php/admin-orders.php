@@ -59,6 +59,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateSql = "UPDATE orders SET status='$status' WHERE id=$orderId";
 
     if ($conn->query($updateSql) === TRUE) {
+        // If the order is accepted, update the product quantities
+        if ($action === 'accept') {
+            // Fetch the items in the order
+            $itemsSql = "SELECT oi.product_id, oi.quantity, p.quantity AS product_stock 
+                         FROM order_items oi 
+                         LEFT JOIN products p ON oi.product_id = p.id 
+                         WHERE oi.order_id = $orderId";
+            $itemsResult = $conn->query($itemsSql);
+
+            while ($itemRow = $itemsResult->fetch_assoc()) {
+                $productId = $itemRow['product_id'];
+                $orderedQuantity = $itemRow['quantity'];
+                $currentStock = $itemRow['product_stock'];
+
+                // Calculate the new stock quantity
+                $newStock = $currentStock - $orderedQuantity;
+
+                // Update the product quantity in the database
+                $updateProductSql = "UPDATE products SET quantity=$newStock WHERE id=$productId";
+                $conn->query($updateProductSql);
+            }
+        }
         echo "Order $status successfully.";
     } else {
         echo "Error: " . $updateSql . "<br>" . $conn->error;

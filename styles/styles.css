@@ -59,6 +59,7 @@ nav ul {
     display: flex;
     justify-content: center; /* Center the navigation items */
     gap: 20px; /* Space between the items */
+    /* background-color: #28a745; */
 }
 
 nav ul li a {
@@ -68,6 +69,10 @@ nav ul li a {
     transition: color 0.3s ease;
     padding: 10px; /* Add padding around the links */
     border-radius: 8px; /* Subtle rounding of edges */
+}
+nav ul li a.active {
+    background-color: #0057b38a;
+    color: white; /* Text color when active */
 }
 
 nav ul li a:hover {

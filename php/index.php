@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-    header("location:home.html");
+    header("location:index.html");
     die();
 }
 // Connect to database
@@ -23,7 +23,7 @@ if ($db) {
                 if ($username === 'admin') {
                     header("location:../admin/admin.html");
                 } else {
-                    header("location:../user/home.html");
+                    header("location:../user/index.html");
                 }
                 die();
             } else {

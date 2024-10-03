@@ -8,7 +8,7 @@ $(document).ready(function() {
             if (!response.admin_logged_in) {
                 // If not logged in as admin, redirect to login page
                 window.location.href = '../php/index.php';
-            }console.log("admin success")
+            }console.log("admin success",window.location.href);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             alert('An error occurred while checking admin session: ' + errorThrown);

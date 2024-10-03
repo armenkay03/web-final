@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['username'])) {
-    header("location:index.php");
-    die();
-}
+
 
 // Connect to database
 $db = new mysqli("34.173.30.56", "root", "nemra26", "mysite");
@@ -29,7 +26,7 @@ if (isset($_POST['login_btn'])) {
         if (password_verify($password, $user['password'])) {
             // Regenerate session ID to prevent session fixation
             session_regenerate_id(true);
-            $_SESSION['message'] = "You are now Logged In";
+            // $_SESSION['message'] = "You are now Logged In";
             $_SESSION['username'] = $username;
 
             // Redirect based on role

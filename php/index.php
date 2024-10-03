@@ -4,32 +4,46 @@ if (isset($_SESSION['username'])) {
     header("location:index.html");
     die();
 }
+
 // Connect to database
-$db = mysqli_connect("34.173.30.56", "root", "nemra26", "mysite");
-if ($db) {
-    if (isset($_POST['login_btn'])) {
-        $username = mysqli_real_escape_string($db, $_POST['username']);
-        $password = mysqli_real_escape_string($db, $_POST['password']);
-        $password = md5($password); // Remember we hashed the password before storing last time
-        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $result = mysqli_query($db, $sql);
+$db = new mysqli("34.173.30.56", "root", "nemra26", "mysite");
 
-        if ($result) {
-            if (mysqli_num_rows($result) >= 1) {
-                $_SESSION['message'] = "You are now Logged In";
-                $_SESSION['username'] = $username;
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
+}
 
-                // Check if the user is admin
-                if ($username === 'admin') {
-                    header("location:../admin/admin.html");
-                } else {
-                    header("location:../user/index.html");
-                }
-                die();
+if (isset($_POST['login_btn'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Prepared statement to prevent SQL injection
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        // Verify hashed password
+        if (password_verify($password, $user['password'])) {
+            // Regenerate session ID to prevent session fixation
+            session_regenerate_id(true);
+            $_SESSION['message'] = "You are now Logged In";
+            $_SESSION['username'] = $username;
+
+            // Redirect based on role
+            if ($username === 'admin') {
+                header("location:../admin/admin.html");
             } else {
-                $_SESSION['message'] = "Username and Password combination incorrect";
+                header("location:../user/index.html");
             }
+            exit();
+        } else {
+            $_SESSION['message'] = "Invalid username or password.";
         }
+    } else {
+        $_SESSION['message'] = "User not found.";
     }
 }
 ?>

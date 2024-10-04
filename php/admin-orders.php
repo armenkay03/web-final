@@ -46,6 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             ];
         }
     }
+
+    // If no orders were found, display the appropriate message
+    if (empty($orders)) {
+        $orders = ["message" => "No orders to be displayed."];
+    }
+
     header('Content-Type: application/json');
     echo json_encode($orders);
 }

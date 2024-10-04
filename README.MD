@@ -1,7 +1,5 @@
 # Inventory Management System
 
-![Project Logo](https://example.com/logo.png) <!-- Replace with your project's logo -->
-
 Welcome to the **Inventory Management System** repository! This project is designed to manage inventory orders effectively with a clean and minimalistic user interface. The system allows users to register, log in, view orders, and update the status of pending orders.
 
 ## Features
@@ -12,6 +10,13 @@ Welcome to the **Inventory Management System** repository! This project is desig
 - **Responsive Design**: Luxury and minimalistic design aesthetic.
 - **Database Integration**: MySQL for data storage and retrieval.
 - **Dynamic Tables**: Tables for displaying accepted and rejected orders.
+- **User & Admin websites**
+
+## User Page 
+
+- **Make Orders**: View and Order a product.
+- **Contact Form**: Submit contact details.
+- **Responsive Design**: Luxury and minimalistic design aesthetic.
 
 ## Tech Stack
 
@@ -31,9 +36,3 @@ Welcome to the **Inventory Management System** repository! This project is desig
 - **Google Cloud Compute Engine (Linux Debian)**: Hosting the project on a cloud virtual machine.
 - **FileZilla**: FTP client for managing files on the server.
 - **MySQL Workbench**: Tool for managing the database and running queries.
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/inventory-management-system.git

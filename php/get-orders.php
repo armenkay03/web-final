@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Fetch orders and their associated items with product names and descriptions
 $sql = "SELECT o.id AS order_id, o.customer_name, o.customer_email, o.status, o.order_date, 
-               oi.product_id, p.name AS product_name, p.description AS product_description, oi.quantity 
+            oi.product_id, p.name AS product_name, p.description AS product_description, oi.quantity 
         FROM orders o 
         LEFT JOIN order_items oi ON o.id = oi.order_id 
         LEFT JOIN products p ON oi.product_id = p.id 

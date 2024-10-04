@@ -12,7 +12,7 @@ Welcome to the **Inventory Management System** repository! This project is desig
 - **Dynamic Tables**: Tables for displaying accepted and rejected orders.
 - **User & Admin websites**
 
-## User Page 
+## User Website 
 
 - **Make Orders**: View and Order a product.
 - **Contact Form**: Submit contact details.
@@ -23,6 +23,8 @@ Welcome to the **Inventory Management System** repository! This project is desig
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
+![Ajax](https://img.shields.io/badge/Ajax-FFD700?style=for-the-badge&logo=javascript&logoColor=black)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
@@ -30,7 +32,7 @@ Welcome to the **Inventory Management System** repository! This project is desig
 
 - **HTML5**: Structure of the webpages.
 - **CSS3**: Styling using new CSS design styles inspired by Apple design principles.
-- **JavaScript**: Fetch API for dynamic updates of orders and contact form submissions.
+- **JavaScript**: Core functionality, with **Ajax** and **jQuery** for dynamic content updates.
 - **MySQL**: Database for storing contact form data and order information.
 - **PHP**: Backend API to handle order status updates and contact submissions.
 - **Google Cloud Compute Engine (Linux Debian)**: Hosting the project on a cloud virtual machine.

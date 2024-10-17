@@ -1,11 +1,14 @@
 <?php
-// Database connection parameters
-$servername = "34.173.30.56"; // Replace with your database server
-$username = "root";        // Replace with your database username
-$password = "nemra26";     // Replace with your database password
-$dbname = "contact";       // Replace with your database name
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
-// Create connection to MySQL database
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];    
+$dbname = "contact";
+
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check if the connection was successful
@@ -20,18 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $conn->real_escape_string($_POST['email']);
     $message = $conn->real_escape_string($_POST['message']);
 
-    // Prepare SQL insert statement using prepared statements
+
     $stmt = $conn->prepare("INSERT INTO contact (name, email, message) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $name, $email, $message);
 
     // Execute the query and check if it was successful
     if ($stmt->execute()) {
-        echo "success";  // Respond with 'success' for AJAX
+        echo "success";  
     } else {
-        echo "Error: " . $stmt->error;  // Respond with error message
+        echo "Error: " . $stmt->error;  
     }
 
-    // Close the statement
     $stmt->close();
 } else {
     echo "Invalid request method. Please submit the form using POST.";

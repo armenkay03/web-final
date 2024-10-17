@@ -1,14 +1,16 @@
 <?php
-// fetch_products.php
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
-// Database connection parameters
-$host = '34.173.30.56';  // Replace with your database host
-$dbname = 'crud';         // Database name
-$user = 'root';           // Database user
-$password = 'nemra26';    // Database password
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD']; 
+$dbname = 'crud';         
+
 
 // Create connection
-$conn = new mysqli($host, $user, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {

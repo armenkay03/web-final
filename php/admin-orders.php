@@ -1,8 +1,14 @@
 <?php
-$servername = "34.173.30.56";
-$username = "root";
-$password = "nemra26";
-$dbname = "crud";
+
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];
+$dbname = 'crud';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -59,13 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // Handle order actions (Accept or Reject)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderId = (int)$_POST['order_id'];
-    $action = $conn->real_escape_string($_POST['action']); // 'accept' or 'reject'
+    $action = $conn->real_escape_string($_POST['action']); 
 
     $status = $action === 'accept' ? 'Accepted' : 'Rejected';
     $updateSql = "UPDATE orders SET status='$status' WHERE id=$orderId";
 
     if ($conn->query($updateSql) === TRUE) {
-        // If the order is accepted, update the product quantities
+        
         if ($action === 'accept') {
             // Fetch the items in the order
             $itemsSql = "SELECT oi.product_id, oi.quantity, p.quantity AS product_stock 
@@ -79,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $orderedQuantity = $itemRow['quantity'];
                 $currentStock = $itemRow['product_stock'];
 
-                // Calculate the new stock quantity
+
                 $newStock = $currentStock - $orderedQuantity;
 
-                // Update the product quantity in the database
+               
                 $updateProductSql = "UPDATE products SET quantity=$newStock WHERE id=$productId";
                 $conn->query($updateProductSql);
             }

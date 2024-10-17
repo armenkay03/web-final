@@ -1,8 +1,13 @@
 <?php
-$servername = "34.173.30.56"; // Your database server
-$username = "root"; // Your database username
-$password = "nemra26"; // Your database password
-$dbname = "crud"; // Your database name
+
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD']; 
+$dbname = "crud";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,7 +18,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch all orders
-$sql = "SELECT * FROM orders"; // Assuming 'orders' is the table name
+$sql = "SELECT * FROM orders"; 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -27,9 +32,8 @@ if ($result->num_rows > 0) {
         echo "<p>Order Date: " . $row["order_date"] . "</p>";
         echo "<h4>Items:</h4>";
 
-        // Fetch associated items from a hypothetical items table
         $orderId = $row["id"];
-        $itemSql = "SELECT * FROM order_items WHERE order_id = $orderId"; // Assuming order_items table
+        $itemSql = "SELECT * FROM order_items WHERE order_id = $orderId"; 
         $itemResult = $conn->query($itemSql);
 
         echo "<ul>";
@@ -48,6 +52,6 @@ if ($result->num_rows > 0) {
     echo "No orders found.";
 }
 
-// Close the database connection
+
 $conn->close();
-?>
+

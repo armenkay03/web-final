@@ -2,9 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "34.173.30.56";
-$username = "root";
-$password = "nemra26";
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD']; 
 $dbname = "crud";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

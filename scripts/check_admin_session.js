@@ -12,7 +12,7 @@ $(document).ready(function() {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             alert('An error occurred while checking admin session: ' + errorThrown);
-            console.log(jqXHR.responseText); // For debugging
+            console.log(jqXHR.responseText);
         }
     });
 });

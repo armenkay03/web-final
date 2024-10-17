@@ -1,11 +1,13 @@
 <?php
 header('Content-Type: application/json');
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
-// Database connection parameters
-$servername = "34.173.30.56"; // Database server
-$username = "root"; // Database username
-$password = "nemra26"; // Database password
-$dbname = "contact"; // Database name
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];
+$dbname = "contact";
 
 // Create connection to MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -33,5 +35,4 @@ if ($result->num_rows > 0) {
 // Close the database connection
 $conn->close();
 
-// Return the submissions as JSON without unnecessary escaping
 echo json_encode($submissions, JSON_UNESCAPED_SLASHES);

@@ -1,8 +1,13 @@
 <?php
 session_start();
-session_destroy();
-unset($_SESSION['username']);
-$_SESSION['message'] = "You are now logged out";
-header("location:../php/index.php");
-exit();
 
+
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__); 
+$dotenv->load();
+$_SESSION['message'] = "You are now logged out";
+unset($_SESSION['username']);
+session_destroy();
+$redirectUrl = $_ENV['REDIRECT_URL'] ?? '../php/index.php';
+header("Location: $redirectUrl");
+exit();

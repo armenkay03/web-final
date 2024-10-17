@@ -14,11 +14,10 @@
 
 function populateTable(submissions) {
     const tableBody = document.querySelector('#submissionsTable tbody');
-    tableBody.innerHTML = ''; // Clear existing content
+    tableBody.innerHTML = ''; 
 
     if (submissions.length > 0) {
         submissions.forEach(submission => {
-            // Clean up the message in case of any escaped characters
             const cleanMessage = submission.message.replace(/\\r\\n|\\n|\\r/g, ' ');
 
             const row = document.createElement('tr');
@@ -39,5 +38,5 @@ function populateTable(submissions) {
 }
 
 
-// Fetch submissions on page load
+
 window.onload = fetchContactSubmissions;

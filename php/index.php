@@ -1,9 +1,12 @@
 <?php
 session_start();
 
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Connect to database
-$db = new mysqli("34.173.30.56", "root", "nemra26", "mysite");
+$db = new mysqli($_ENV['DB_SERVER'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], "mysite");
 
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
@@ -13,7 +16,7 @@ if (isset($_POST['login_btn'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Prepared statement to prevent SQL injection
+
     $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();

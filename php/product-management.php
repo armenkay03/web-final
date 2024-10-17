@@ -1,8 +1,11 @@
 <?php
-$servername = "34.173.30.56"; // Your database server
-$username = "root"; // Your database username
-$password = "nemra26"; // Your database password
-$dbname = "crud"; // Your database name
+require __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$servername = $_ENV['DB_SERVER'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];
+$dbname = "crud"; 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

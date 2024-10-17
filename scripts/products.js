@@ -1,17 +1,17 @@
 let products = [];
         let sortOrder = {
-            name: 'asc', // Default sort order for name
-            date: 'asc', // Default sort order for date
-            quantity: 'asc', // Default sort order for quantity
-            price: 'asc' // Default sort order for price
+            name: 'asc', 
+            date: 'asc', 
+            quantity: 'asc', 
+            price: 'asc' 
         };
 
-        // Fetch products from the PHP file
+        
         fetch('../php/fetch_products.php')
             .then(response => response.json())
             .then(data => {
-                products = data; // Store the fetched products
-                displayProducts(products); // Display products initially
+                products = data; 
+                displayProducts(products); 
             })
             .catch(error => {
                 console.error('Error fetching products:', error);
@@ -20,7 +20,7 @@ let products = [];
 
         function displayProducts(products) {
             const tableBody = document.getElementById('product-table-body');
-            tableBody.innerHTML = ''; // Clear previous rows
+            tableBody.innerHTML = ''; 
 
             if (products.length > 0) {
                 products.forEach(product => {

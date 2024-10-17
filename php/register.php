@@ -14,6 +14,9 @@ if (isset($_POST['register_btn'])) {
     $password = $_POST['password'];
     $password2 = $_POST['password2'];
 
+    // Minimum password length
+    $min_password_length = 8;
+
     // Check if username exists
     $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -21,9 +24,14 @@ if (isset($_POST['register_btn'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        echo '<script>alert("Username already exists")</script>';
+        echo '<script>alert("Username already exists"); window.location.href = "/php/index.php";</script>';
+        exit(); // Prevent further code execution
     } else {
-        if ($password == $password2) {
+        if (strlen($password) < $min_password_length) {
+            $_SESSION['message'] = "Password must be at least $min_password_length characters long.";
+        } elseif ($password !== $password2) {
+            $_SESSION['message'] = "Passwords do not match.";
+        } else {
             // Hash the password securely
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -34,13 +42,12 @@ if (isset($_POST['register_btn'])) {
             if ($stmt->execute()) {
                 $_SESSION['message'] = "You are now registered and logged in";
                 $_SESSION['username'] = $username;
-                header("location:../user/index.html");
+                header("location: ../user/index.html");
                 exit();
             } else {
                 $_SESSION['message'] = "Registration failed. Please try again.";
             }
-        } else {
-            $_SESSION['message'] = "Passwords do not match.";
         }
     }
 }
+?>

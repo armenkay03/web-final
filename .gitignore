@@ -1,0 +1,22 @@
+# Ignore environment variables file
+.env
+
+# Ignore node_modules (if you're using Node.js)
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore build directories
+dist/
+build/
+
+# Ignore any IDE-specific files
+.idea/
+.vscode/
+.DS_Store
+
+# Ignore other files
+*.tmp
+*.bak
+*.swp

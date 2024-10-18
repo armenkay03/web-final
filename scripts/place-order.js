@@ -1,41 +1,44 @@
 let products = [];
-    
+
 // Fetch products from the server
 async function fetchProducts() {
     const response = await fetch('../php/fetch_products.php');
     products = await response.json();
-    const productSelect = document.getElementById('product');
-    
+    const productSelect = $('#product');
+
     products.forEach(product => {
-        const option = document.createElement('option');
-        option.value = product.id; // Use product ID as value
-        option.textContent = `${product.name} - ${product.description}`; // Display name and description
-        productSelect.appendChild(option);
+        const option = new Option(`${product.name} - ${product.description}`, product.id);
+        productSelect.append(option);
+    });
+
+    // Initialize select2 for product dropdown
+    $('#product').select2({
+        placeholder: 'Select a product',
+        allowClear: true,
+        width: 'resolve' 
     });
 }
 
 // Update quantity options based on the selected product
 function updateQuantityOptions() {
-    const productSelect = document.getElementById('product');
-    const quantitySelect = document.getElementById('quantity');
-    quantitySelect.innerHTML = '<option value="">Select quantity</option>'; // Reset quantity dropdown
-
-    const selectedProductId = productSelect.value;
+    const selectedProductId = $('#product').val();
     const selectedProduct = products.find(product => product.id == selectedProductId);
-    
+    const quantitySelect = $('#quantity');
+    quantitySelect.empty().append(new Option('Select quantity', '')); 
+
     if (selectedProduct && selectedProduct.quantity > 0) {
-        const maxQuantity = selectedProduct.quantity; // Assuming quantity is the available stock
+        const maxQuantity = selectedProduct.quantity;
         for (let i = 1; i <= maxQuantity; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i; // Display quantity from 1 to maxQuantity
-            quantitySelect.appendChild(option);
+            const option = new Option(i, i);
+            quantitySelect.append(option);
         }
     }
 }
 
 // Call fetchProducts on page load
-window.onload = fetchProducts;
+$(document).ready(() => {
+    fetchProducts();
+});
 
 // Handle form submission
 async function placeOrder(event) {
@@ -47,8 +50,8 @@ async function placeOrder(event) {
         body: formData
     });
     const result = await response.text();
-    
-    alert(result); // Show success message
-    document.getElementById('order-form').reset(); // Reset the form
-    updateQuantityOptions(); // Reset quantity dropdown on form reset
+
+    alert(result); 
+    $('#order-form')[0].reset(); 
+    updateQuantityOptions(); 
 }

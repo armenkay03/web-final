@@ -3,15 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const downloadSection = document.getElementById('download-section');
     const downloadButton = document.getElementById('downloadReport');
 
-    // Hide the download section initially
-    // downloadSection.style.display = 'none';
-
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         generateReport(event);
     });
 
-    // Event listener for downloading the report
     downloadButton.addEventListener('click', function () {
         alert("Excel file is being downloaded...");
     });
@@ -68,6 +64,5 @@ function prepareExcelReport(data) {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Products');
     
-    // Use the writeFile method to prompt the download of the Excel file
     XLSX.writeFile(wb, 'inventory_report.xlsx');
 }
